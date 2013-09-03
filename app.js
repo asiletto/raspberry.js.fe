@@ -5,7 +5,7 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
+var actuators = require('./routes/actuators');
 var charts = require('./routes/charts');
 var http = require('http');
 var path = require('path');
@@ -33,7 +33,7 @@ app.get('/charts', charts.charts);
 app.get('/chartsRaw', charts.chartsRaw);
 app.get('/json/chart/currentDay', charts.currentDay);
 app.get('/json/chart/raw', charts.raw);
-app.get('/users', user.list);
+app.get('/actuators', actuators.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
