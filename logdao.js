@@ -33,12 +33,15 @@ LogDAO.prototype.getCollection= function(name, callback) {
   });
 };
 
-LogDAO.prototype.currentDay = function(serie, callback) {
+LogDAO.prototype.currentDay = function(series, callback) {
    var dateOffset = (24*60*60*1000);
    var myDate = new Date();
    myDate.setTime(myDate.getTime() - dateOffset);
    var fieldFilter = {};
-   fieldFilter[serie] = 1;
+   for (var i in series) {
+    var serie = series[i]
+    fieldFilter[serie] = 1;
+   }
    fieldFilter['timestamp'] = 1;
    console.log("fieldFilter",fieldFilter);
    var count = 0;
@@ -50,8 +53,10 @@ LogDAO.prototype.currentDay = function(serie, callback) {
         results.forEach(function(doc) {
 	//calcolo la media
          count++;
-         doc[serie]['average'] = doc[serie]['sum'] / doc[serie]['count'];
-   
+         for (var i in series) {
+           var serie = series[i]
+           doc[serie]['average'] = doc[serie]['sum'] / doc[serie]['count'];
+         }  
          if(count == results.length)
            callback(results);    
 
@@ -65,4 +70,4 @@ LogDAO.prototype.currentDay = function(serie, callback) {
 };
 
 
-exports.LogDAO = LogDAO;
+exports.LogDAO = new LogDAO();

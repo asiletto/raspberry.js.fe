@@ -1,4 +1,4 @@
-var LogDAO = require('../logdao').LogDAO;
+var dao = require('../logdao').LogDAO;
 var sleep = require('sleep');
 
 function printCallback(results){
@@ -7,21 +7,16 @@ function printCallback(results){
             console.log("Doc from Array ");
             console.dir(doc);
           });
-}
-var dao = new LogDAO();
+};
 
 console.log("new dao");
 
+var dao2 = require('../logdao').LogDAO;
+
 setTimeout(function(){
-  dao.currentDay('s1', printCallback);
+  var array = ['s1', 's2']
+  dao.currentDay(array, printCallback);
   console.log("===================");
-
-  dao.currentDay('s2', printCallback);
-  console.log("===================");
-
-  dao.currentDay('s3', printCallback);
-  console.log("===================");
-
 
 
 }, 3000);

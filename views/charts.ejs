@@ -1,3 +1,68 @@
-<% include header %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>test draggable chart</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="/js/highcharts.js"></script>
+<script src="/js/highcharts-draggable.js"></script>
+<script type="text/javascript">
+var chart;
 
-<% include footer %>
+$(function () {
+
+
+$.getJSON('/json/chart/currentDay?sensors=s1,s2,s3', function(json) {
+
+chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'container',
+            zoomType: 'x'
+        },
+        tooltip: {
+					crosshairs: true,
+					valueDecimals: 1,
+                    valueSuffix: ' °C'
+				},
+        yAxis: {
+            type: 'double'
+        },
+        xAxis: {
+            type: 'datetime',
+            labels: {
+                formatter: function () {
+                    return Highcharts.dateFormat('%d %b %H:%M', this.value);
+                },
+                dateTimeLabelFormats: {
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%e. %b',
+                    week: '%e. %b',
+                    month: '%b \'%y',
+                    year: '%Y'
+                }
+            }
+        },
+        series: json
+    });
+
+
+}).error(function() {console.log('error');});
+
+});
+
+</script>
+
+</head>
+ 
+<body>
+
+<div id="container" style="height: 300px"></div>
+<div id="drag"></div>
+<div id="drop"></div>
+
+
+</body>
+</html>
+
+
