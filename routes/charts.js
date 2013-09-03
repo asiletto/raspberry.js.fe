@@ -30,10 +30,12 @@ exports.raw = function(req, res){
     for (var i in sensArr) {
        var serie = sensArr[i];
        var item = [];
-       item.push(doc.timestamp.getTime());
-       item.push(doc[serie]);
-       if(doc[serie] > 0)//temporary fix, handle -0.1 (TODO on logger)
-	       serieMap[serie]['data'].unshift(item);//highcharts wants correct order
+       if(doc[serie] != undefined){
+         item.push(doc.timestamp.getTime());
+         item.push(doc[serie]);
+         if(doc[serie] > 0)//temporary fix, handle -0.1 (TODO on logger)
+  	   serieMap[serie]['data'].unshift(item);//highcharts wants correct order
+       }
     }
 
     if(count == data.length){
@@ -73,9 +75,11 @@ exports.currentDay = function(req, res){
     for (var i in sensArr) {
        var serie = sensArr[i];
        var item = [];
-       item.push(doc.timestamp.getTime());
-       item.push(doc[serie]['average']);
-       serieMap[serie]['data'].push(item);
+	if(doc[serie] != undefined){
+       	 item.push(doc.timestamp.getTime());
+      	 item.push(doc[serie]['average']);
+         serieMap[serie]['data'].push(item);
+	}
     } 
 
     if(count == data.length){

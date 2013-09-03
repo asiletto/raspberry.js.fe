@@ -54,7 +54,8 @@ LogDAO.prototype.currentDay = function(series, callback) {
          count++;
          for (var i in series) {
            var serie = series[i]
-           doc[serie]['average'] = doc[serie]['sum'] / doc[serie]['count'];
+	   if(doc[serie] != undefined)
+	           doc[serie]['average'] = doc[serie]['sum'] / doc[serie]['count'];
          }  
          if(count == results.length)
            callback(results);    
@@ -83,7 +84,6 @@ LogDAO.prototype.raw = function(series, callback) {
           console.log("error", err);
         else{
         results.forEach(function(doc) {
-        //calcolo la media
          count++;
          if(count == results.length)
            callback(results);
