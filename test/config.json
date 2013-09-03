@@ -1,0 +1,30 @@
+{
+  _id: ObjectId("5225d1419addc0ba4600001f"),
+  type: "sensor",
+  sensor: "DS18B20",
+  key: "s1",
+  file: "/sys/bus/w1/devices/28-00000489b41e/w1_slave",
+  label: "T Medio",
+  order: 2
+}
+
+{
+  _id: ObjectId("5225d1bcc56958e7a2000029"),
+  type: "sensor",
+  sensor: "DS18B20",
+  key: "s2",
+  file: "/sys/bus/w1/devices/28-00000489ba05/w1_slave",
+  label: "T Alto",
+  order: 1
+}
+
+{
+  _id: ObjectId("5225d1dd9addc0ee1d00000c"),
+  type: "sensor",
+  sensor: "DS18B20",
+  key: "s3",
+  file: "/sys/bus/w1/devices/28-0000048d5401/w1_slave",
+  label: "T Basso",
+  order: 3
+}
+

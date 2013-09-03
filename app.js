@@ -30,7 +30,9 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/charts', charts.charts);
+app.get('/chartsRaw', charts.chartsRaw);
 app.get('/json/chart/currentDay', charts.currentDay);
+app.get('/json/chart/raw', charts.raw);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

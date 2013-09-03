@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>test chart</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="/js/highcharts.js"></script>
+<script src="/js/highcharts-draggable.js"></script>
+<script type="text/javascript">
+var chart;
+var pointMap = {};
+$(function () {
+
+
+$.getJSON('/json/chart/raw?sensors=s2,s1,s3&labels=T Alto,T Medio,T Basso', function(json) {
+
+chart = new Highcharts.Chart({
+        chart: {
+            type:'spline',
+	    renderTo: 'container',
+            zoomType: 'x'
+        },
+/*	plotOptions: {
+	    spline: {
+		marker: {
+		    enabled: false
+		}
+    	    }
+	},*/
+	title: {
+	    text: "Daily temperatures"	
+	},
+        tooltip: {
+	    crosshairs: true,
+	    valueDecimals: 1,
+            valueSuffix: ' °C'
+	},
+        yAxis: {
+            type: 'double',
+	    title: {
+	    	text: "Temperature"
+	    }
+        },
+        xAxis: {
+            type: 'datetime',
+            labels: {
+                formatter: function () {
+                    return Highcharts.dateFormat('%d %b %H:%M', this.value);
+                },
+                dateTimeLabelFormats: {
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%e. %b',
+                    week: '%e. %b',
+                    month: '%b \'%y',
+                    year: '%Y'
+                }
+            }
+        },
+        series: json
+    });
+
+setInterval(function(){
+   console.log("update chart...");
+
+   $.getJSON('/json/chart/raw?sensors=s2,s1,s3&labels=T Alto,T Medio,T Basso', function(json) {
+   for(var i in json){
+    var serie = json[i];
+     var data = serie['data'];
+//     for(var j in data){
+       var j = data.length - 1;
+       var item = data[j];
+       var tstamp = item[0];
+       var temp = item[1];
+       var pointKey = serie['name'] + tstamp;
+       if(pointKey in pointMap){
+       
+       } else {
+          chart.series[i].addPoint(item, true, true);
+          pointMap[pointKey] = "1";
+	  console.log("added point", item);
+       }
+//     }
+   }
+   });
+
+}, 30000);
+
+
+}).error(function() {console.log('error');});
+
+});
+
+</script>
+
+</head>
+ 
+<body>
+
+<div id="container" style="height: 300px"></div>
+<div id="drag"></div>
+<div id="drop"></div>
+
+
+</body>
+</html>
+
+

@@ -64,7 +64,33 @@ LogDAO.prototype.currentDay = function(series, callback) {
     }
    ); 
 
+};
 
+LogDAO.prototype.raw = function(series, callback) {
+   var dateOffset = (5*60*60*1000);
+   var myDate = new Date();
+   myDate.setTime(myDate.getTime() - dateOffset);
+   var fieldFilter = {};
+   for (var i in series) {
+    var serie = series[i]
+    fieldFilter[serie] = 1;
+   }
+   fieldFilter['timestamp'] = 1;
+   var count = 0;
+   this.adb.collection("v1_raw").find( { timestamp: {$gte:myDate,$lte:new Date()} }, fieldFilter, {sort: [['timestamp','desc']], limit:180}).toArray(
+    function(err, results){
+      if(err)
+          console.log("error", err);
+        else{
+        results.forEach(function(doc) {
+        //calcolo la media
+         count++;
+         if(count == results.length)
+           callback(results);
+         });
+        }
+    }
+   );
 
 };
 
