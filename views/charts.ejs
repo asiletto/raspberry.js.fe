@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>test draggable chart</title>
+<title>test chart</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="/js/highcharts.js"></script>
 <script src="/js/highcharts-draggable.js"></script>
@@ -12,20 +12,26 @@ var chart;
 $(function () {
 
 
-$.getJSON('/json/chart/currentDay?sensors=s1,s2,s3', function(json) {
+$.getJSON('/json/chart/currentDay?sensors=s2,s1,s3&labels=T Alto,T Medio,T Basso', function(json) {
 
 chart = new Highcharts.Chart({
         chart: {
             renderTo: 'container',
             zoomType: 'x'
         },
+	title: {
+	    text: "Daily temperatures"	
+	},
         tooltip: {
-					crosshairs: true,
-					valueDecimals: 1,
-                    valueSuffix: ' °C'
-				},
+	    crosshairs: true,
+	    valueDecimals: 1,
+            valueSuffix: ' °C'
+	},
         yAxis: {
-            type: 'double'
+            type: 'double',
+	    title: {
+	    	text: "Temperature"
+	    }
         },
         xAxis: {
             type: 'datetime',

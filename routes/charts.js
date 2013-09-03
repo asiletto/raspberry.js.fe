@@ -7,12 +7,15 @@ exports.charts = function(req, res){
 exports.currentDay = function(req, res){
   var sensors = req.query.sensors;
   var sensArr = sensors.split(",");
+  var sensorNames = req.query.labels;
+  var nameArr = sensorNames.split(",");
   var response = [];
   var serieMap = {};
    for (var i in sensArr) {
        var serie = sensArr[i];
+       var label = nameArr[i];
        serieMap[serie] = {}
-       serieMap[serie]['name'] = serie;
+       serieMap[serie]['name'] = label;
        serieMap[serie]['data'] = [];
    }
   dao.currentDay(sensArr, function(data){

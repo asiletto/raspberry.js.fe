@@ -43,7 +43,6 @@ LogDAO.prototype.currentDay = function(series, callback) {
     fieldFilter[serie] = 1;
    }
    fieldFilter['timestamp'] = 1;
-   console.log("fieldFilter",fieldFilter);
    var count = 0;
    this.adb.collection("v1_hourly").find( { timestamp: {$gte:myDate,$lte:new Date()} }, fieldFilter).toArray(
     function(err, results){
