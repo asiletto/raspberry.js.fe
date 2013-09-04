@@ -1,6 +1,6 @@
 {
   "name": "raspberry.pi.fe",
-  "version": "0.1.7-0",
+  "version": "0.1.7-9",
   "private": true,
   "scripts": {
     "start": "node app.js"
