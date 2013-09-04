@@ -6,7 +6,7 @@ var chart;
 $(function () {
 
 
-$.getJSON('/json/chart/currentDay?sensors=s2,s1,s3&labels=T Alto,T Medio,T Basso', function(json) {
+$.getJSON('/json/chart/hourly?sensors=s2,s1,s3&labels=T Alto,T Medio,T Basso&hours=<%= hours %>', function(json) {
 
 chart = new Highcharts.Chart({
         chart: {

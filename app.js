@@ -18,8 +18,9 @@ app.locals.menus = [
 	{'name':'dashboard', 	'href':'/',				'css':'icon-play', 					'label':'Dashboard'},
 	{'name':'sensors', 		'href':'/sensor/list', 	'css':'icon-circle-arrow-right', 	'label':'Sensors'},
 	{'name':'actuators', 	'href':'/actuator/list','css':'icon-random', 				'label':'Actuators'},
-	{'name':'hourlychart', 	'href':'/charts', 		'css':'icon-signal', 				'label':'Hourly chart (24h)'},
-	{'name':'rawchart', 	'href':'/chartsRaw', 	'css':'icon-signal', 				'label':'Raw chart (3h)'},
+	{'name':'rawchart', 	'href':'/charts/raw', 	'css':'icon-signal', 				'label':'Raw chart (3h)'},
+	{'name':'hourlychart', 	'href':'/charts/day',	'css':'icon-signal', 				'label':'Hourly chart (24h)'},
+	{'name':'weeklychart', 	'href':'/charts/week',	'css':'icon-signal', 				'label':'Weekly chart (7d)'},
 	{'name':'credits', 		'href':'/credits', 		'css':'icon-heart', 				'label':'Credits'},
 	{'name':'typography', 	'href':'/typography', 	'css':'icon-list-alt', 				'label':'Typography'}
 ];
@@ -44,9 +45,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/credits', routes.credits);
 app.get('/typography', routes.typography);
-app.get('/charts', charts.charts);
-app.get('/chartsRaw', charts.chartsRaw);
-app.get('/json/chart/currentDay', charts.currentDay);
+app.get('/charts/day', charts.chartsDay);
+app.get('/charts/week', charts.chartsWeek);
+app.get('/charts/raw', charts.chartsRaw);
+app.get('/json/chart/hourly', charts.hourly);
 app.get('/json/chart/raw', charts.raw);
 app.get('/sensor/list', sensors.index);
 app.get('/sensor/add', sensors.form);

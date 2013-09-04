@@ -29,8 +29,8 @@ LogDAO.prototype.getCollection= function(name, callback) {
   });
 };
 
-LogDAO.prototype.currentDay = function(series, callback) {
-   var dateOffset = (24*60*60*1000);
+LogDAO.prototype.hourly = function(series, hours, callback) {
+   var dateOffset = (hours*60*60*1000);
    var myDate = new Date();
    myDate.setTime(myDate.getTime() - dateOffset);
    var fieldFilter = {};
