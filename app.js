@@ -12,6 +12,15 @@ var path = require('path');
 
 var app = express();
 
+//
+app.locals.menus = [
+	{'name':'dashboard', 	'href':'/',				'css':'icon-play', 			'label':'Dashboard'},
+	{'name':'hourlychart', 	'href':'/charts', 		'css':'icon-align-left', 	'label':'Hourly chart (24h)'},
+	{'name':'rawchart', 	'href':'/chartsRaw', 	'css':'icon-align-left', 	'label':'Raw chart (3h)'},
+	{'name':'actuators', 	'href':'/actuators', 	'css':'icon-random', 		'label':'Actuators'},
+	{'name':'typography', 	'href':'/typography', 	'css':'icon-list-alt', 		'label':'Typography'}
+];
+
 // all environments
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');

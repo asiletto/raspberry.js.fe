@@ -4,9 +4,9 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'raspberry.pi.js' });
+  res.render('index', { title: 'raspberry.pi.js', menu:'dashboard' });
 };
 
 exports.typography = function(req, res){
-  res.render('typography', { title: 'raspberry.pi.js/typography' });
+  res.render('typography', { title: 'raspberry.pi.js/typography', menu:'typography' });
 };
