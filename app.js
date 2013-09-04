@@ -29,6 +29,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/typography', routes.typography);
 app.get('/charts', charts.charts);
 app.get('/chartsRaw', charts.chartsRaw);
 app.get('/json/chart/currentDay', charts.currentDay);
