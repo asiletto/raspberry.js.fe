@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<title>test chart</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="/js/highcharts.js"></script>
-<script src="/js/highcharts-draggable.js"></script>
+<% include header %>
+
 <script type="text/javascript">
 var chart;
 var pointMap = {};
@@ -17,7 +11,7 @@ $.getJSON('/json/chart/raw?sensors=s2,s1,s3&labels=T Alto,T Medio,T Basso', func
 chart = new Highcharts.Chart({
         chart: {
             type:'spline',
-	    renderTo: 'container',
+			renderTo: 'container',
             zoomType: 'x'
         },
 /*	plotOptions: {
@@ -28,7 +22,7 @@ chart = new Highcharts.Chart({
     	    }
 	},*/
 	title: {
-	    text: "Daily temperatures"	
+	    text: "<%= title %>"	
 	},
         tooltip: {
 	    crosshairs: true,
@@ -60,31 +54,30 @@ chart = new Highcharts.Chart({
         series: json
     });
 
-setInterval(function(){
-   console.log("update chart...");
+	//get updates in real time
+	setInterval(function(){
+	   console.log("update chart...");
 
-   $.getJSON('/json/chart/raw?sensors=s2,s1,s3&labels=T Alto,T Medio,T Basso', function(json) {
-   for(var i in json){
-    var serie = json[i];
-     var data = serie['data'];
-//     for(var j in data){
-       var j = data.length - 1;
-       var item = data[j];
-       var tstamp = item[0];
-       var temp = item[1];
-       var pointKey = serie['name'] + tstamp;
-       if(pointKey in pointMap){
-       
-       } else {
-          chart.series[i].addPoint(item, true, true);
-          pointMap[pointKey] = "1";
-	  console.log("added point", item);
-       }
-//     }
-   }
-   });
+	   $.getJSON('/json/chart/raw?sensors=s2,s1,s3&labels=T Alto,T Medio,T Basso', function(json) {
+	   for(var i in json){
+		var serie = json[i];
+		 var data = serie['data'];
+		   var j = data.length - 1;
+		   var item = data[j];
+		   var tstamp = item[0];
+		   var temp = item[1];
+		   var pointKey = serie['name'] + tstamp;
+		   if(pointKey in pointMap){
+		   
+		   } else {
+			  chart.series[i].addPoint(item, true, true);
+			  pointMap[pointKey] = "1";
+		  console.log("added point", item);
+		   }
+	   }
+	   });
 
-}, 30000);
+	}, 30000);
 
 
 }).error(function() {console.log('error');});
@@ -93,16 +86,9 @@ setInterval(function(){
 
 </script>
 
-</head>
- 
-<body>
-
 <div id="container" style="height: 300px"></div>
 <div id="drag"></div>
 <div id="drop"></div>
 
-
-</body>
-</html>
-
+<% include footer %>
 

@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<title>test chart</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="/js/highcharts.js"></script>
-<script src="/js/highcharts-draggable.js"></script>
+<% include header %>
+
 <script type="text/javascript">
 var chart;
 
@@ -20,7 +14,7 @@ chart = new Highcharts.Chart({
             zoomType: 'x'
         },
 	title: {
-	    text: "Daily temperatures"	
+	    text: "<%= title %>"	
 	},
         tooltip: {
 	    crosshairs: true,
@@ -59,16 +53,10 @@ chart = new Highcharts.Chart({
 
 </script>
 
-</head>
- 
-<body>
 
 <div id="container" style="height: 300px"></div>
 <div id="drag"></div>
 <div id="drop"></div>
 
-
-</body>
-</html>
-
+<% include footer %>
 

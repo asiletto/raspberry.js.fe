@@ -1,11 +1,11 @@
 var dao = require('../logdao').LogDAO;
 
 exports.charts = function(req, res){
-  res.render('charts', {});
+  res.render('charts', { title: 'Hourly chart (24h)', hcharts: 'true'});
 };
 
 exports.chartsRaw = function(req, res){
-  res.render('chartsRaw', {});
+  res.render('chartsRaw', { title: 'By minute chart (3h)',  hcharts: 'true'});
 };
 
 exports.raw = function(req, res){
