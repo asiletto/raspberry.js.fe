@@ -1,8 +1,10 @@
-
-/*
- * GET home page.
- */
+var dao = require('../dao').LogDAO;
 
 exports.index = function(req, res){
-  res.render('actuators', { title: 'Test actuators', menu:'actuators' });
+
+  dao.getActuators(function(err, results){
+	res.render('actuators', { title: 'Test actuators', menu:'actuators', actuators:results });
+  });
+
+  
 };

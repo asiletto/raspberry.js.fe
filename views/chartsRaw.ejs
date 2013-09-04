@@ -11,7 +11,7 @@ $.getJSON('/json/chart/raw?sensors=s2,s1,s3&labels=T Alto,T Medio,T Basso', func
 chart = new Highcharts.Chart({
         chart: {
             type:'spline',
-			renderTo: 'container',
+			renderTo: 'ccontainer',
             zoomType: 'x'
         },
 /*	plotOptions: {
@@ -86,9 +86,20 @@ chart = new Highcharts.Chart({
 
 </script>
 
-<div id="container" style="height: 300px"></div>
-<div id="drag"></div>
-<div id="drop"></div>
+
+ <section id="dashboard">
+                  <header>
+                    <h1><%= title %></h1>
+				  </header>			
+					<div class="row-fluid">
+
+					<div id="ccontainer" style="height: 300px"></div>
+					<div id="drag"></div>
+					<div id="drop"></div>
+
+					</div>
+						 
+                </section>
 
 <% include footer %>
 
