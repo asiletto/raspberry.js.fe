@@ -3,22 +3,36 @@ var routes = require('./routes');
 var sensors = require('./routes/sensors');
 var actuators = require('./routes/actuators');
 var charts = require('./routes/charts');
+var dcharts = require('./routes/dynChart');
 var http = require('http');
 var path = require('path');
 
 var app = express();
 
+
+var loadChartsMenu = function (req, res, next) {
+   
 //menus
-app.locals.menus = [
+   res.locals({
+	menus: [
 	{'name':'dashboard', 	'href':'/',				'css':'icon-play', 					'label':'Dashboard'},
 	{'name':'sensors', 		'href':'/sensor/list', 	'css':'icon-circle-arrow-right', 	'label':'Sensors'},
 	{'name':'actuators', 	'href':'/actuator/list','css':'icon-random', 				'label':'Actuators'},
+	
+	{'name':'chart522876bca7b28c11fe0000ba', 	'href':'/dcharts/raw?id=522876bca7b28c11fe0000ba', 	'css':'icon-signal', 'label':'test chart'},
+	
 	{'name':'rawchart', 	'href':'/charts/raw', 	'css':'icon-signal', 				'label':'Raw chart (3h)'},
 	{'name':'hourlychart', 	'href':'/charts/day',	'css':'icon-signal', 				'label':'Hourly chart (24h)'},
 	{'name':'weeklychart', 	'href':'/charts/week',	'css':'icon-signal', 				'label':'Weekly chart (7d)'},
 	{'name':'credits', 		'href':'/credits', 		'css':'icon-heart', 				'label':'Credits'},
 	{'name':'typography', 	'href':'/typography', 	'css':'icon-list-alt', 				'label':'Typography'}
-];
+	]
+	});
+   
+   next();
+};
+
+app.all('*', loadChartsMenu);
 
 // all environments
 app.set('port', process.env.PORT || 8080);
@@ -43,6 +57,10 @@ app.get('/typography', routes.typography);
 app.get('/charts/day', charts.chartsDay);
 app.get('/charts/week', charts.chartsWeek);
 app.get('/charts/raw', charts.chartsRaw);
+
+app.get('/dcharts/raw', dcharts.chartRaw);
+app.get('/json/dchart/raw', dcharts.raw);
+
 app.get('/json/chart/hourly', charts.hourly);
 app.get('/json/chart/raw', charts.raw);
 app.get('/sensor/list', sensors.index);

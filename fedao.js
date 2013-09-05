@@ -69,8 +69,8 @@ FeDAO.prototype.hourly = function(series, hours, callback) {
 
 };
 
-FeDAO.prototype.raw = function(series, callback) {
-   var dateOffset = (5*60*60*1000);
+FeDAO.prototype.raw = function(duration, series, callback) {
+   var dateOffset = (duration*60*60*1000);
    var myDate = new Date();
    myDate.setTime(myDate.getTime() - dateOffset);
    var fieldFilter = {};
@@ -80,7 +80,7 @@ FeDAO.prototype.raw = function(series, callback) {
    }
    fieldFilter['timestamp'] = 1;
    var count = 0;
-   this.adb.collection(this.tables.raw).find( { timestamp: {$gte:myDate,$lte:new Date()} }, fieldFilter, {sort: [['timestamp','desc']], limit:180}).toArray(
+   this.adb.collection(this.tables.raw).find( { timestamp: {$gte:myDate,$lte:new Date()} }, fieldFilter, {sort: [['timestamp','desc']]}).toArray(
     function(err, results){
       if(err)
           console.log("error", err);
@@ -96,11 +96,16 @@ FeDAO.prototype.raw = function(series, callback) {
 
 };
 
+FeDAO.prototype.findChart = function(chartid, callback){
+	this.adb.collection(this.tables.config).find({type:'chart', _id: ObjectID(chartid)}).toArray(callback);
+}
+
 FeDAO.prototype.getSensors = function(callback){
 	this.adb.collection(this.tables.config).find({type:'sensor'}).toArray(callback);
-}
+};
 
 FeDAO.prototype.getActuators = function(callback){
 	this.adb.collection(this.tables.config).find({type:'actuator'}).toArray(callback);
-}
+};
+
 exports.FeDAO = new FeDAO();

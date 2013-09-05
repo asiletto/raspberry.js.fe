@@ -26,7 +26,7 @@ exports.raw = function(req, res){
        serieMap[serie]['name'] = label;
        serieMap[serie]['data'] = [];
    }
-  dao.raw(sensArr, function(data){
+  dao.raw(3, sensArr, function(data){
     var count =0;
     data.forEach(function(doc) {
     count++;
@@ -38,7 +38,7 @@ exports.raw = function(req, res){
          item.push(doc.timestamp.getTime());
          item.push(doc[serie]);
          if(doc[serie] > 0)//temporary fix, handle -0.1 (TODO on logger)
-  	   serieMap[serie]['data'].unshift(item);//highcharts wants correct order
+			serieMap[serie]['data'].unshift(item);//highcharts wants correct order
        }
     }
 
@@ -53,7 +53,6 @@ exports.raw = function(req, res){
     });
 
   });
-
 
 }
 
