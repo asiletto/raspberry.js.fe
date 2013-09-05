@@ -1,4 +1,4 @@
-var dao = require('../dao').LogDAO;
+var dao = require('../fedao').FeDAO;
 
 exports.index = function(req, res){
 

@@ -1,4 +1,4 @@
-var dao = require('../dao').LogDAO;
+var dao = require('../fedao').FeDAO;
 
 exports.chartsDay = function(req, res){
   res.render('charts', { title: 'Hourly chart (24h)', hcharts: 'true', menu: 'hourlychart', hours: '24'});
