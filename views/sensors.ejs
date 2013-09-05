@@ -2,9 +2,11 @@
 
  <section id="dashboard">
                   <header>
+				  <!--
                     <div class="pull-right">
                         <a href="/sensor/add" class="btn btn-small">Add new sensor</a>
                     </div>
+					-->
                     <h1>Sensor list</h1>
 				  </header>			
 					<div class="row-fluid">
@@ -13,11 +15,10 @@
 						<thead>
 						  <tr>
 							<th>Type</th>
-							<th>ID</th>
+							<th>Active</th>
+							<th>Series</th>
 							<th>Binding</th>
-							<th>Label</th>
 							<th>Order</th>
-							<th>Last measure</th>
 						  </tr>
 						</thead>
 						<tbody>
@@ -29,11 +30,27 @@
 
 						<tr>
 							<td class="primary"><%= sensor.sensor %></td>
-							<td><%= sensor.key %></td>
-							<td><%= sensor.file %></td>
-							<td><%= sensor.label %></td>
+							<td>
+								<div class="make-switch">
+									<input type="checkbox" <% if(sensor.enabled) { %>checked<%}%>>
+								</div>
+							</td>
+							<td>
+								<ul>
+								<% for (var key in sensor.series) { %>
+									<li><%= key %> : <%= sensor.series[key] %></li>
+								<% } %>
+								</ul>
+							</td>
+							<td>
+								<% if(sensor.sensor == 'DS18B20') { %>
+									file://<%= sensor.file %>
+								<% } %>
+								<% if(sensor.sensor == 'DHT22') { %>
+									pin://<%= sensor.pin %>
+								<% } %>
+							</td>
 							<td><%= sensor.order %></td>
-							<td>xxxxxxxxx</td>
 						</tr>
 
 						<% } %>
