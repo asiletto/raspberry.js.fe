@@ -1010,7 +1010,7 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .navbar .brand{font-family:"League Gothic","Museo Slab","Helvetica Neue",Helvetica,arial,sans-serif;font-size:37px;margin-left:15px;text-shadow:0 1px 1px #000000;}
 .navbar .tagline{float:left;line-height:61px;color:#999999;font-weight:italic;font-size:11px;text-shadow:0 1px 1px rgba(0, 0, 0, 0.45);}
 .navbar a{color:#f9601c;font-size:11px;}
-.navbar .auth{line-height:18px;min-width:150px;color:#999999;margin-right:20px;position:relative;top:10px;}.navbar .auth img.avatar{position:relative;top:-2px;border:3px solid #2c3234;float:left;}
+.navbar .auth{line-height:18px;min-width:150px;color:#999999;margin-right:20px;position:relative;top:10px;}.navbar .auth img.avatar{position:relative;top:-2px;/*border:3px solid #2c3234;*/float:left;}
 .navbar .auth span.name{margin-left:10px;position:relative;top:3px;font-weight:bold;color:#ffffff;font-size:11px;text-transform:uppercase;text-shadow:0 1px 1px #000000;}
 .navbar .auth span.links{margin-left:10px;}.navbar .auth span.links a+a{margin-left:3px;}
 .navbar .nav-collapse.collapse.in .auth{float:left;margin-left:20px;margin-bottom:30px;}

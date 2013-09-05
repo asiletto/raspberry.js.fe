@@ -2,21 +2,15 @@
 					<aside>
 						<nav>
 							<ul class="nav">
-							  <li class="selected">
-								<a href="/"><i class="icon-play"></i> Dashboard</a>
+							
+							<% for(var i=0; i<menus.length; i++) {
+							   var mItem = menus[i];
+							%>
+							  <li <% if(menu==mItem['name']){ %>class="selected"<% } %>>
+								<a href="<%= mItem['href'] %>"><i class="<%= mItem['css'] %><% if(menu!=mItem['name']){ %> icon-white<% } %>"></i> <%= mItem['label'] %></a>
 							  </li>
-							  <li>
-								<a href="/charts"><i class="icon-th-list icon-white"></i> Hourly chart (24h)</a>
-							  </li>
-							  <li>
-								<a href="/chartsRaw"><i class="icon-user icon-white"></i> By minute chart (3h)</a>
-							  </li>
-							  <li>
-								<a href="/actuators"><i class="icon-retweet icon-white"></i> Actuators</a>
-							  </li>
-							  <li>
-								<a href="/typography"><i class="icon-font icon-white"></i> Typography</a>
-							  </li>
+							<% } %>
+
 							</ul>
 						</nav>
 					</aside>

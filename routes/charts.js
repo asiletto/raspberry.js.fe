@@ -1,11 +1,15 @@
-var dao = require('../logdao').LogDAO;
+var dao = require('../fedao').FeDAO;
 
-exports.charts = function(req, res){
-  res.render('charts', { title: 'Hourly chart (24h)', hcharts: 'true'});
+exports.chartsDay = function(req, res){
+  res.render('charts', { title: 'Hourly chart (24h)', hcharts: 'true', menu: 'hourlychart', hours: '24'});
+};
+
+exports.chartsWeek = function(req, res){
+  res.render('charts', { title: 'Weekly chart (7d)', hcharts: 'true', menu: 'weeklychart', hours: '168'});
 };
 
 exports.chartsRaw = function(req, res){
-  res.render('chartsRaw', { title: 'By minute chart (3h)',  hcharts: 'true'});
+  res.render('chartsRaw', { title: 'By minute chart (3h)',  hcharts: 'true', menu: 'rawchart'});
 };
 
 exports.raw = function(req, res){
@@ -53,7 +57,7 @@ exports.raw = function(req, res){
 
 }
 
-exports.currentDay = function(req, res){
+exports.hourly = function(req, res){
   var sensors = req.query.sensors;
   var sensArr = sensors.split(",");
   var sensorNames = req.query.labels;
@@ -67,7 +71,7 @@ exports.currentDay = function(req, res){
        serieMap[serie]['name'] = label;
        serieMap[serie]['data'] = [];
    }
-  dao.currentDay(sensArr, function(data){
+  dao.hourly(sensArr,parseInt(req.query.hours), function(data){
     var count =0;
     data.forEach(function(doc) {  
     count++;

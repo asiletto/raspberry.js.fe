@@ -1,26 +1,46 @@
 <% include header %>
 
-<script type="text/javascript" src="/js/jquery.iphone-switch.js"></script>
-<script type="text/javascript">
-$(function () {
+ <section id="dashboard">
+                  <header>
+                    <h1>Actuators list</h1>
+				  </header>			
+					<div class="row-fluid">
+					
+						<table class="table table-striped full-section table-hover">
+							<thead>
+							  <tr>
+								<th>Type</th>
+								<th>ID</th>
+								<th>Binding</th>
+								<th>Label</th>
+								<th>Order</th>
+								<th>Last measure</th>
+							  </tr>
+							</thead>
+							<tbody>
+											  
+						<% 
+						for(var i=0; i<actuators.length; i++) {
+						var actuator = actuators[i];
+						%>
 
-$('#button1').iphoneSwitch("on", 
-     function() {
-       $('#ajax').html("ON");
-      },
-      function() {
-       $('#ajax').html("OFF");
-      },
-      {});
+							<tr>
+								<td class="primary"><%= actuator.actuator %></td>
+								<td><%= actuator.key %></td>
+								<td><%= actuator.pin %></td>
+								<td><%= actuator.label %></td>
+								<td><%= actuator.order %></td>
+								<td>xxxxxxxxx</td>
+							</tr>
 
-});
+							<% } %>
 
-</script>
+						</tbody>
+						</table>
+					</div>
+						 
+                </section>
 
-<div class="left" id="button1"></div>
-<div id="ajax"></div>
-<div class="clear"></div>
 
 <% include footer %>
-
 
