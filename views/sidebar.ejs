@@ -3,13 +3,17 @@
 						<nav>
 							<ul class="nav">
 							
-							<% for(var i=0; i<menus.length; i++) {
-							   var mItem = menus[i];
+							<%
+							if(menus){
+								for(var i=0; i<menus.length; i++) {
+								   var mItem = menus[i];
+								%>
+								  <li <% if(menu==mItem['name']){ %>class="selected"<% } %>>
+									<a href="<%= mItem['href'] %>"><i class="<%= mItem['css'] %><% if(menu!=mItem['name']){ %> icon-white<% } %>"></i> <%= mItem['label'] %></a>
+								  </li>
+								<% }
+							}
 							%>
-							  <li <% if(menu==mItem['name']){ %>class="selected"<% } %>>
-								<a href="<%= mItem['href'] %>"><i class="<%= mItem['css'] %><% if(menu!=mItem['name']){ %> icon-white<% } %>"></i> <%= mItem['label'] %></a>
-							  </li>
-							<% } %>
 
 							</ul>
 						</nav>

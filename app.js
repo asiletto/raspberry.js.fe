@@ -6,33 +6,52 @@ var charts = require('./routes/charts');
 var dcharts = require('./routes/dynChart');
 var http = require('http');
 var path = require('path');
+var dao = require('./fedao').FeDAO;
 
 var app = express();
 
+// load menus the first time the app start
+var dynmenus = [];
+var loadMenus = function(req, res, next){
 
-var loadChartsMenu = function (req, res, next) {
-   
-//menus
-   res.locals({
-	menus: [
-	{'name':'dashboard', 	'href':'/',				'css':'icon-play', 					'label':'Dashboard'},
-	{'name':'sensors', 		'href':'/sensor/list', 	'css':'icon-circle-arrow-right', 	'label':'Sensors'},
-	{'name':'actuators', 	'href':'/actuator/list','css':'icon-random', 				'label':'Actuators'},
-	
-	{'name':'chart522876bca7b28c11fe0000ba', 	'href':'/dcharts/raw?id=522876bca7b28c11fe0000ba', 	'css':'icon-signal', 'label':'test chart'},
-	
-	{'name':'rawchart', 	'href':'/charts/raw', 	'css':'icon-signal', 				'label':'Raw chart (3h)'},
-	{'name':'hourlychart', 	'href':'/charts/day',	'css':'icon-signal', 				'label':'Hourly chart (24h)'},
-	{'name':'weeklychart', 	'href':'/charts/week',	'css':'icon-signal', 				'label':'Weekly chart (7d)'},
-	{'name':'credits', 		'href':'/credits', 		'css':'icon-heart', 				'label':'Credits'},
-	{'name':'typography', 	'href':'/typography', 	'css':'icon-list-alt', 				'label':'Typography'}
-	]
+	if(dynmenus.length == 0){
+		console.log("loading menus...");
+		dao.loadCharts(function(err, charts){
+		
+		dynmenus.push({'name':'dashboard', 	'href':'/',	'css':'icon-play', 	'label':'Dashboard'});
+		dynmenus.push({'name':'sensors', 'href':'/sensor/list', 	'css':'icon-circle-arrow-right', 'label':'Sensors'});
+		dynmenus.push({'name':'actuators', 	'href':'/actuator/list','css':'icon-random', 'label':'Actuators'});
+		
+		for(var i in charts){
+			var chart = charts[i];
+			dynmenus.push({'name':'chart'+chart._id, 	'href':'/dcharts/raw?id='+chart._id, 	'css':'icon-signal', 				'label':chart.title});
+			
+		}
+		
+		dynmenus.push({'name':'rawchart', 	'href':'/charts/raw', 	'css':'icon-signal', 				'label':'Raw chart (3h)'});
+		dynmenus.push({'name':'hourlychart', 	'href':'/charts/day',	'css':'icon-signal', 				'label':'Hourly chart (24h)'});
+		dynmenus.push({'name':'weeklychart', 	'href':'/charts/week',	'css':'icon-signal', 				'label':'Weekly chart (7d)'});
+		dynmenus.push({'name':'credits', 		'href':'/credits', 		'css':'icon-heart', 				'label':'Credits'});
+		dynmenus.push({'name':'typography', 	'href':'/typography', 	'css':'icon-list-alt', 				'label':'Typography'});
+
+		res.locals({
+			menus: dynmenus
+		});
+		
+		next();
+		});
+		
+	}else{
+
+	res.locals({
+		menus: dynmenus
 	});
-   
-   next();
-};
-
-app.all('*', loadChartsMenu);
+	
+	next();
+	
+	}
+	
+}
 
 // all environments
 app.set('port', process.env.PORT || 8080);
@@ -42,6 +61,10 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+//app.use(express.cookieParser('your secret here 123 abc aaa sss xxx ssss ddd fff ggg'));
+//app.use(express.session());
+app.use(loadMenus);
+
 app.use(app.router);
 var oneYear = 31557600000;
 app.use(express.static(__dirname + '/public', { maxAge: oneYear }));

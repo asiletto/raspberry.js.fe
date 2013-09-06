@@ -96,8 +96,16 @@ FeDAO.prototype.raw = function(duration, series, callback) {
 
 };
 
+FeDAO.prototype.getDb = function(){
+	return this.adb;
+}
+
 FeDAO.prototype.findChart = function(chartid, callback){
 	this.adb.collection(this.tables.config).find({type:'chart', _id: ObjectID(chartid)}).toArray(callback);
+}
+
+FeDAO.prototype.loadCharts = function(callback){
+	this.adb.collection(this.tables.config).find({type:'chart'}).toArray(callback);
 }
 
 FeDAO.prototype.getSensors = function(callback){
