@@ -30,15 +30,11 @@
 
 						<tr>
 							<td class="primary"><%= sensor.sensor %></td>
-							<td>
-								<div class="make-switch">
-									<input type="checkbox" <% if(sensor.enabled) { %>checked<%}%>>
-								</div>
-							</td>
+							<td><%= sensor.enabled %></td>
 							<td>
 								<ul>
 								<% for (var key in sensor.series) { %>
-									<li><%= key %> : <%= sensor.series[key] %></li>
+									<li><%= sensor.series[key].name %></li>
 								<% } %>
 								</ul>
 							</td>

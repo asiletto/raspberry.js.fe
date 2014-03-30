@@ -1,6 +1,6 @@
 {
-  "name": "raspberry.pi.fe",
-  "version": "0.1.10-45",
+  "name": "GeoMess",
+  "version": "0.4.1-7",
   "private": true,
   "scripts": {
     "start": "node app.js"

@@ -10,11 +10,11 @@
 							<thead>
 							  <tr>
 								<th>Type</th>
-								<th>ID</th>
+								<th>Active</th>
 								<th>Binding</th>
 								<th>Label</th>
 								<th>Order</th>
-								<th>Last measure</th>
+								<th>Status</th>
 							  </tr>
 							</thead>
 							<tbody>
@@ -26,11 +26,15 @@
 
 							<tr>
 								<td class="primary"><%= actuator.actuator %></td>
-								<td><%= actuator.key %></td>
+								<td><%= actuator.enabled %></td>
 								<td><%= actuator.pin %></td>
-								<td><%= actuator.label %></td>
+								<td><%= actuator.series[0].name %></td>
 								<td><%= actuator.order %></td>
-								<td>xxxxxxxxx</td>
+								<td>
+									<div class="make-switch">
+										<input type="checkbox" <% if(actuator.series[0].lastValue == "1") { %>checked<%}%>>
+									</div>
+								</td>
 							</tr>
 
 							<% } %>

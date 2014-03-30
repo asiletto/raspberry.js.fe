@@ -24,6 +24,9 @@ var loadMenus = function(req, res, next){
 		
 		for(var i in charts){
 			var chart = charts[i];
+			
+			console.log("dynchart: "+chart._id+", title:"+chart.title);
+			
 			dynmenus.push({'name':'chart'+chart._id, 	'href':'/dcharts/raw?id='+chart._id, 	'css':'icon-signal', 				'label':chart.title});
 			
 		}

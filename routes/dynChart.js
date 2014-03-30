@@ -38,7 +38,7 @@ exports.chartRaw = function(req, res){
 			series = series.slice(0,-1);
 			labels = labels.slice(0,-1);
 			
-			res.render('dynChartRaw', {
+			res.render(chart.view, {
 				'hcharts': 'true',
 				'menu': 'chart'+chartid,
 				'series': series,
@@ -82,7 +82,7 @@ exports.raw = function(req, res){
        if(doc[serie] != undefined){
          item.push(doc.timestamp.getTime());
          item.push(doc[serie]);
-         if(doc[serie] > 0)//temporary fix, handle -0.1 (TODO on logger)
+        // if(doc[serie] > 0)//temporary fix, handle -0.1 (TODO on logger)
 			serieMap[serie]['data'].unshift(item);//highcharts wants correct order
        }
     }
