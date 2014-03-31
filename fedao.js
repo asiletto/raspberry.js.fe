@@ -8,6 +8,7 @@ var FeDAO = function(){
   var self = this;
   this.tables = {};
   this.tables.config = "v1_config";
+  this.tables.last = "v1_last";
   this.tables.raw = "v1_raw";
   this.tables.daily = "v1_daily";
   this.tables.hourly = "v1_hourly";
@@ -102,6 +103,10 @@ FeDAO.prototype.getDb = function(){
 
 FeDAO.prototype.findChart = function(chartid, callback){
 	this.adb.collection(this.tables.config).find({type:'chart', _id: ObjectID(chartid)}).toArray(callback);
+}
+
+FeDAO.prototype.lastValues = function(callback){
+	this.adb.collection(this.tables.last).find({ 'value': { $exists: true } }).toArray(callback);
 }
 
 FeDAO.prototype.loadCharts = function(callback){

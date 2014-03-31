@@ -86,6 +86,7 @@ app.get('/charts/raw', charts.chartsRaw);
 
 app.get('/dcharts/raw', dcharts.chartRaw);
 app.get('/json/dchart/raw', dcharts.raw);
+app.get('/dcharts/last', dcharts.lastValues);
 
 app.get('/json/chart/hourly', charts.hourly);
 app.get('/json/chart/raw', charts.raw);

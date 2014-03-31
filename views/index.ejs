@@ -1,37 +1,56 @@
 <% include header %>
 
+<script>
+var charts = {};
+
+function updateGauge(serie){
+	var serieId = serie['serie'];
+	var serieValue = serie.value;
+	var chart = charts[serieId];
+	if(chart != null){
+		var point = chart.series[0].points[0];
+		point.update(serieValue);
+	}
+}
+
+$(function () {
+
+	charts['s2'] = drawGaugeChart("chart1", "ants (high)");
+	charts['s1'] = drawGaugeChart("chart2", "ants (low)");
+	charts['s3'] = drawGaugeChart("chart3", "roaches");
+	
+
+	$.getJSON('/dcharts/last', function(json) {
+	
+			for(var i in json)
+				updateGauge(json[i]);
+
+
+	setInterval(function(){
+		$.getJSON('/dcharts/last', function(json) {
+
+			for(var i in json)
+				updateGauge(json[i]);
+
+		});
+	}, 30000);
+
+});
+
+});
+</script>
+
                 <section id="dashboard">
                   <header>
                     <div class="pull-right">
                         <a class="btn btn-small">Edit</a>
-                        <a class="btn btn-small">Shoot me</a>
                     </div>
                     <h1>Dashboard</h1>
 					</header>			
 					<div class="row-fluid">
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
+						<div id="chart2" style="width:30%;height:300px;display: inline-block;"></div>
+						<div id="chart1" style="width:30%;height:300px;display: inline-block;"></div>
+						<div id="chart3" style="width:30%;height:300px;display: inline-block;"></div>
 					</div>
 						 
                 </section>

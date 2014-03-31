@@ -56,6 +56,13 @@ exports.chartRaw = function(req, res){
 
 };
 
+exports.lastValues = function(req, res){
+	dao.lastValues(function(err, data){
+		res.send(data);
+	});
+
+}
+
 exports.raw = function(req, res){
   var sensors = req.query.sensors;
   var duration = req.query.duration;

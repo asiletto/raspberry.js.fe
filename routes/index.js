@@ -1,6 +1,6 @@
 
 exports.index = function(req, res){
-  res.render('index', { title: 'raspberry.pi.js', menu:'dashboard' });
+  res.render('index', {'hcharts': 'true', title: 'raspberry.pi.js', menu:'dashboard' });
 };
 
 exports.typography = function(req, res){
